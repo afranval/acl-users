@@ -38,16 +38,19 @@ class AppView extends View
     public function initialize()
     {
         $this->user = $this->request->getSession()->read('User.data');
+        $this->loadHelper('Paginator', ['templates' => 'paginator-templates']);
     }
-    public function checkLogged() {        
+
+    public function checkLogged() 
+    {        
         if(!empty($this->user)){
             return true;
         }            
         return false;
     }
 
-    public function checkByRole(String $role) {
-
+    public function checkByRole(String $role) 
+    {
         if(!empty($this->user))
         {
             if($this->user->role->name == $role){

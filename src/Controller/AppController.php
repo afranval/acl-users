@@ -91,5 +91,7 @@ class AppController extends Controller
         if (@$this->userSession) {
 			$this->set('userSession', $this->userSession);			
 		}
+        
+        $this->viewBuilder()->setLayout('backend');
     }
 }
