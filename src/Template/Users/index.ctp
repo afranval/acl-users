@@ -13,8 +13,10 @@
                     <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Options
                     </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?=$this->Url->Build(['action'=>'add'])?>">Add user</a></li>
+                    <ul class="dropdown-menu">                        
+                        <?php if($this->checkByRole('admin')): ?> 
+                            <li><a class="dropdown-item" href="<?=$this->Url->Build(['action'=>'add'])?>">Add user</a></li>                            
+                        <?php endif ?>
                         <li><a class="dropdown-item" href="#search" id="search">Search user</a></li>
                     </ul>
                 </div>

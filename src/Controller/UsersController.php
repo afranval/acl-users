@@ -98,6 +98,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
+        $this->checkRoleAdmin();
         $user = $this->Users->get($id, [
             'contain' => ['Roles'],
         ]);
@@ -112,6 +113,8 @@ class UsersController extends AppController
      */
     public function add()
     {
+        $this->checkRoleAdmin();
+        
         $errors = [];
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
@@ -139,6 +142,7 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+        $this->checkRoleAdmin();
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -164,6 +168,7 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
+        $this->checkRoleAdmin();
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {

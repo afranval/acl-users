@@ -91,7 +91,14 @@ class AppController extends Controller
         if (@$this->userSession) {
 			$this->set('userSession', $this->userSession);			
 		}
-        
+
         $this->viewBuilder()->setLayout('backend');
+    }
+
+    public function checkRoleAdmin(){        
+        if ($this->userSession->role->name !== "admin") {
+            $this->Flash->error('Your not privileges for this section.');
+            return $this->redirect($this->referer());
+        }
     }
 }
