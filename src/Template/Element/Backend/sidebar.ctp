@@ -1,7 +1,17 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?></li>
-    </ul>
+<nav class="bg-light" id="actions-sidebar">
+    <div class="list-group">
+        <a 
+            href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>" 
+            class="list-group-item list-group-item-action " 
+            aria-current="true"            
+        >
+            List Users
+        </a>
+        <a 
+            href="<?= $this->Url->build(['controller' => 'Roles', 'action' => 'index']) ?>" 
+            class="list-group-item list-group-item-action <?= ($this->request->getParam('controller') == 'Roles') ? "active" : '' ?>"
+        >
+            List Roles
+        </a>
+    </div>
 </nav>

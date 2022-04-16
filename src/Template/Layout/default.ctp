@@ -38,12 +38,8 @@ $cakeDescription = 'ACL Manager';
     
     <?php if($this->checkLogged()): ?> 
         <?= $this->element("Backend/navbar")?>
-
-        <?php if($this->checkByRole('admin')): ?> 
-            <?= $this->element("Backend/sidebar")?>
-        <?php endif; ?>
-        
     <?php endif; ?>
+            
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>

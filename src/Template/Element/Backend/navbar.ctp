@@ -1,14 +1,38 @@
-<nav class="top-bar expanded" data-topbar role="navigation">        
-    <ul class="title-area large-3 medium-4 columns">
-        <li class="name">
-            <h1><a href="">ACL Manager - <?= $userSession->username ?> (<?= $userSession->role->name ?>)</a></h1>
-        </li>
-    </ul>
-    
-    <div class="top-bar-section">
-        <ul class="right">
-        <li><a href="<?= $this->Url->build([ 'controller' => 'Users', 'action' => 'logout' ]) ?>">Logout</a></li>
-        </ul>
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a href="" class="navbar-brand">
+            ACL Manager - <?= $userSession->username ?> (<?= $userSession->role->name ?>)
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+            <?php if($this->checkByRole('admin')): ?> 
+                <li class="nav-item">
+                    <a 
+                        class="nav-link <?= ($this->request->getParam('controller') == 'Users') ? "active" : '' ?>" 
+                        aria-current="page" 
+                        href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>"
+                    >
+                        Users
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a 
+                        class="nav-link <?= ($this->request->getParam('controller') == 'Roles') ? "active" : '' ?>" 
+                        href="<?= $this->Url->build(['controller' => 'Roles', 'action' => 'index']) ?>" 
+                    >
+                        Roles
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div class="d-flex">
+                        <a href="<?= $this->Url->build([ 'controller' => 'Users', 'action' => 'logout' ]) ?>" class="btn btn-outline-light" >Logout</a>
+                    </div>
+                </li>
+            <?php endif; ?>
+            </ul>
+        </div>
     </div>
-
 </nav>

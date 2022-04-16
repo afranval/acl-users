@@ -20,8 +20,8 @@ class UsersController extends AppController
     }
     public function beforeFilter(Event $event)
     {
-        parent::beforeFilter($event);
-        $this->loadModel('Users');
+        parent::beforeFilter($event);        
+        $this->loadModel('Roles');
     }
     /**
      * Index method
@@ -29,13 +29,33 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null
      */
     public function index()
-    {        
+    {
+        $conditionsRol = [];
+        $conditionsUser = [];
+        /**
+         * Get query to search
+         */
+        if(@$this->request->getQuery('search')){            
+            $conditionsUser[] = [
+                "username LIKE" => "%" . $this->request->getQuery('username') . "%",
+                "email LIKE"    => "%" . $this->request->getQuery('email') . "%", 
+            ];
+            $conditionsRol[] = @$this->request->getQuery('role_id') ? ['Roles.id' => $this->request->getQuery('role_id')] : null;            
+            $this->set("get", $this->request->getQuery());
+        }
+
         $this->paginate = [
-            'contain' => ['Roles'],
+            'contain' => [
+                'Roles'=> [
+                    'conditions' => $conditionsRol
+                ]
+            ],
+            'conditions' => $conditionsUser
         ];        
         $users = $this->paginate($this->Users);
+        $roles = $this->Roles->find('list', ['keyField' => 'id', 'valueField' => 'name', 'limit' => 200]);
 
-        $this->set(compact('users'));
+        $this->set(compact('users','roles'));
     }
     /**
      * Login method
@@ -92,6 +112,7 @@ class UsersController extends AppController
      */
     public function add()
     {
+        $errors = [];
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -101,8 +122,11 @@ class UsersController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            
+            $errors = @$user->getErrors();
+            $this->set(compact("errors"));
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        $roles = $this->Roles->find('list', ['keyField' => 'id', 'valueField' => 'name', 'limit' => 200]);
         $this->set(compact('user', 'roles'));
     }
 
@@ -127,7 +151,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        $roles = $this->Roles->find('list', ['keyField' => 'id', 'valueField' => 'name', 'limit' => 200]);                    
         $this->set(compact('user', 'roles'));
     }
 
