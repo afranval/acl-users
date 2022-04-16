@@ -8,30 +8,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-            <?php if($this->checkByRole('admin')): ?> 
-                <li class="nav-item">
-                    <a 
-                        class="nav-link <?= ($this->request->getParam('controller') == 'Users') ? "active" : '' ?>" 
-                        aria-current="page" 
-                        href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>"
-                    >
-                        Users
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a 
-                        class="nav-link <?= ($this->request->getParam('controller') == 'Roles') ? "active" : '' ?>" 
-                        href="<?= $this->Url->build(['controller' => 'Roles', 'action' => 'index']) ?>" 
-                    >
-                        Roles
-                    </a>
-                </li>
+                <?php if($this->checkByRole('admin')): ?> 
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link <?= ($this->request->getParam('controller') == 'Users') ? "active" : '' ?>" 
+                            aria-current="page" 
+                            href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>"
+                        >
+                            Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link <?= ($this->request->getParam('controller') == 'Roles') ? "active" : '' ?>" 
+                            href="<?= $this->Url->build(['controller' => 'Roles', 'action' => 'index']) ?>" 
+                        >
+                            Roles
+                        </a>
+                    </li>                
+                <?php endif; ?>
                 <li class="nav-item">
                     <div class="d-flex">
                         <a href="<?= $this->Url->build([ 'controller' => 'Users', 'action' => 'logout' ]) ?>" class="btn btn-outline-light" >Logout</a>
                     </div>
                 </li>
-            <?php endif; ?>
             </ul>
         </div>
     </div>

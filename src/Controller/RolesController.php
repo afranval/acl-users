@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
 /**
  * Roles Controller
  *
@@ -12,6 +12,10 @@ use App\Controller\AppController;
  */
 class RolesController extends AppController
 {
+    public function beforeFilter(Event $event)  {
+        parent::beforeFilter($event);
+        $this->checkRoleAdmin();
+    }
     /**
      * Index method
      *
